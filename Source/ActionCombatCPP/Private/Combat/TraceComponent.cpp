@@ -2,8 +2,11 @@
 
 
 #include "Combat/TraceComponent.h"
+
+#include "Engine/DamageEvents.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Interfaces/Fighter.h"
 
 // Sets default values for this component's properties
 UTraceComponent::UTraceComponent()
@@ -30,6 +33,8 @@ void UTraceComponent::BeginPlay()
 void UTraceComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	if (!bIsAttacking) { return; }
 
 	FVector StartSocketLocation{ SkeletalComp->GetSocketLocation(Start) };
 	FVector EndSocketLocation{ SkeletalComp->GetSocketLocation(End) };
@@ -84,4 +89,39 @@ GetOwner()
 			2.0f
 		);
 	}
+
+	if (OutResults.Num() == 0) { return; }
+
+	float CharacterDamage { 0.0f };
+
+	IFighter* FighterRef{ Cast<IFighter>(GetOwner())};
+
+	if (FighterRef)
+	{
+		CharacterDamage += FighterRef->GetDamage();
+	}
+
+	FDamageEvent TargetAttackedEvent;
+	
+	for (const FHitResult& Hit: OutResults)
+	{
+		AActor* TargetActor{ Hit.GetActor()};
+
+		if (TargetsToIgnore.Contains(TargetActor)) { continue; }
+		
+		TargetActor->TakeDamage(
+			CharacterDamage,
+			TargetAttackedEvent,
+			GetOwner()->GetInstigatorController(),
+			GetOwner()
+			);
+
+		TargetsToIgnore.AddUnique(TargetActor); // AddUnique checks if value already exists
+		
+	}
+}
+
+void UTraceComponent::HandleResetAttack()
+{
+	TargetsToIgnore.Empty();
 }

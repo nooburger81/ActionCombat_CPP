@@ -19,9 +19,7 @@ void UStatsComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
-	
-}
+	}
 
 
 // Called every frame

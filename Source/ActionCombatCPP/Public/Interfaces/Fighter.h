@@ -11,8 +11,6 @@ UINTERFACE(MinimalAPI)
 class UFighter : public UInterface
 {
 	GENERATED_BODY()
-
-	
 };
 
 /**
@@ -24,4 +22,5 @@ class ACTIONCOMBATCPP_API IFighter
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	virtual float GetDamage() { return 0.0f; }
 };
