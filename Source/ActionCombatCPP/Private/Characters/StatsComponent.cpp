@@ -3,6 +3,9 @@
 
 #include "Characters/StatsComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Kismet/KismetSystemLibrary.h"
+
+
 
 // Sets default values for this component's properties
 UStatsComponent::UStatsComponent()
@@ -53,5 +56,6 @@ void UStatsComponent::ReduceStamina(float Amount)
 		0,
 		Stats[EStat::MaxStamina]
 		);
-}
+
+	}
 

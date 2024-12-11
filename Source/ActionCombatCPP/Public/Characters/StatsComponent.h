@@ -13,6 +13,8 @@ class ACTIONCOMBATCPP_API UStatsComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+	
+
 public:	
 	// Sets default values for this component's properties
 	UStatsComponent();
@@ -33,4 +35,5 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void ReduceStamina(float Amount);
-};
+
+	};

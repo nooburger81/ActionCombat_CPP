@@ -42,16 +42,3 @@ void UPlayerActionsComponent::TickComponent(float DeltaTime, ELevelTick TickType
 
 	// ...
 }
-
-void UPlayerActionsComponent::Sprint()
-{
-	if (!IPlayerRef->HasEnoughStamina(SprintCost)) { return; }
-
-	MovementComp->MaxWalkSpeed = SprintSpeed;
-}
-
-void UPlayerActionsComponent::Walk()
-{
-	MovementComp->MaxWalkSpeed = WalkSpeed;
-}
-
