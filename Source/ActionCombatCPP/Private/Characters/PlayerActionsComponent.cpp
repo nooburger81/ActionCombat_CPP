@@ -3,6 +3,12 @@
 
 #include "Characters/PlayerActionsComponent.h"
 
+#include <ThirdParty/ShaderConductor/ShaderConductor/External/DirectXShaderCompiler/include/dxc/DXIL/DxilConstants.h>
+
+#include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Interfaces/PlayerInterface.h"
+
 // Sets default values for this component's properties
 UPlayerActionsComponent::UPlayerActionsComponent()
 {
@@ -19,7 +25,12 @@ void UPlayerActionsComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+	CharacterRef = GetOwner<ACharacter>();
+	MovementComp = CharacterRef->GetCharacterMovement();
+
+	if (CharacterRef->Implements<UPlayerInterface>()) { return; }
+
+	IPlayerRef = Cast<IPlayerInterface>(CharacterRef);
 	
 }
 
@@ -30,5 +41,17 @@ void UPlayerActionsComponent::TickComponent(float DeltaTime, ELevelTick TickType
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+void UPlayerActionsComponent::Sprint()
+{
+	if (!IPlayerRef->HasEnoughStamina(SprintCost)) { return; }
+
+	MovementComp->MaxWalkSpeed = SprintSpeed;
+}
+
+void UPlayerActionsComponent::Walk()
+{
+	MovementComp->MaxWalkSpeed = WalkSpeed;
 }
 

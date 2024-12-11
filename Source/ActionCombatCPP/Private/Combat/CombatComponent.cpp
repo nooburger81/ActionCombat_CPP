@@ -3,7 +3,8 @@
 
 #include "Combat/CombatComponent.h"
 #include "GameFramework/Character.h"
-#include "Kismet/KismetMathLibrary.h"	
+#include "Kismet/KismetMathLibrary.h"
+#include "Interfaces/PlayerInterface.h"
 
 // Sets default values for this component's properties
 UCombatComponent::UCombatComponent()
@@ -17,7 +18,17 @@ UCombatComponent::UCombatComponent()
 
 void UCombatComponent::ComboAttack()
 {
-if (!bCanAttack) { return;}
+	if (CharacterRef->Implements<UPlayerInterface>())
+	{
+		IPlayerInterface* IPlayerRef{ Cast<IPlayerInterface>(CharacterRef) };
+
+		if (IPlayerRef && ! IPlayerRef->HasEnoughStamina(StaminaCost))
+		{
+			return;
+		}
+	}
+	
+	if (!bCanAttack) { return;}
 
 	bCanAttack = false;
 	
@@ -32,6 +43,8 @@ if (!bCanAttack) { return;}
 		-1,
 		(MaxCombo - 1)
 		);
+
+		OnAttackPerformedDelegate.Broadcast(StaminaCost);
 }
 
 

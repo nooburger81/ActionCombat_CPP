@@ -7,6 +7,8 @@
 #include "Interfaces/Enemy.h"
 #include "BossCharacter.generated.h"
 
+class UStatsComponent;
+
 UCLASS()
 class ACTIONCOMBATCPP_API ABossCharacter : public ACharacter, public IEnemy
 {
@@ -15,6 +17,9 @@ class ACTIONCOMBATCPP_API ABossCharacter : public ACharacter, public IEnemy
 public:
 	// Sets default values for this character's properties
 	ABossCharacter();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UStatsComponent* StatsComp;
 
 protected:
 	// Called when the game starts or when spawned
