@@ -13,14 +13,17 @@ UCLASS()
 class ACTIONCOMBATCPP_API UBTT_RangedAttack : public UBTTaskNode
 {
 	GENERATED_BODY()
+
 	UPROPERTY(EditAnywhere)
 	UAnimMontage* AnimMontage;
 
 	double Threshold{ 0.9 };
-
+	
 public:
 	virtual EBTNodeResult::Type ExecuteTask(
 		UBehaviorTreeComponent& OwnerComp,
 		uint8* NodeMemory
-		) override;
+	) override;
 };
+
+

@@ -4,17 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "LockOnComponent.generated.h"
+#include "LockonComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_OneParam(
 	FOnUpdatedTargetSignature,
-	ULockOnComponent, OnUpdatedTargetDelegate, 
+	ULockonComponent, OnUpdatedTargetDelegate,
 	AActor*, NewTargetActorRef
 );
 
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class ACTIONCOMBATCPP_API ULockOnComponent : public UActorComponent
+class ACTIONCOMBATCPP_API ULockonComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
@@ -26,9 +25,9 @@ class ACTIONCOMBATCPP_API ULockOnComponent : public UActorComponent
 
 	class USpringArmComponent* SpringArmComp;
 
-public:
+public:	
 	// Sets default values for this component's properties
-	ULockOnComponent();
+	ULockonComponent();
 
 	AActor* CurrentTargetActor;
 
@@ -40,19 +39,19 @@ protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintCallable)
-	void StartLockOn(float Radius = 750.0f);
+	void StartLockon(float Radius = 750.0f);
 
-	void EndLockOn();
+	void EndLockon();
 
 	UFUNCTION(BlueprintCallable)
-	void ToggleLockOn(float Radius = 750.0f);
+	void ToggleLockon(float Radius = 750.0f);
 
 	UPROPERTY(EditAnywhere)
-	double BreakDistance{ 1000.0f };
-
+	double BreakDistance{ 1000.0 };
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 		
 };
+

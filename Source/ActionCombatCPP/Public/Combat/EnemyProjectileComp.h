@@ -8,13 +8,13 @@
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class ACTIONCOMBATCPP_API UEnemyProjectileComp : public UActorComponent
+class ACTIONCOMBATCPP_API UEnemyProjectileComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UEnemyProjectileComp();
+	UEnemyProjectileComponent();
 
 protected:
 	// Called when the game starts
@@ -27,6 +27,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SpawnProjectile(
 		FName ComponentName, TSubclassOf<AActor> ProjectileClass
-		);
-		
+	);
 };
+

@@ -11,7 +11,7 @@ void UPlayerAnimInstance::UpdateSpeed()
 
 	FVector Velocity{ PawnRef->GetVelocity() };
 
-	CurrentSpeed = static_cast<float>(Velocity.Length()); // Convert to float with static_cast
+	CurrentSpeed = static_cast<float>(Velocity.Length());
 }
 
 void UPlayerAnimInstance::HandleUpdatedTarget(AActor* NewTargetActorRef)
@@ -19,17 +19,17 @@ void UPlayerAnimInstance::HandleUpdatedTarget(AActor* NewTargetActorRef)
 	bIsInCombat = IsValid(NewTargetActorRef);
 }
 
-void UPlayerAnimInstance::UpdateDirection(FVector Direction)
+void UPlayerAnimInstance::UpdateDirection()
 {
 	APawn* PawnRef{ TryGetPawnOwner() };
 
-	if (!IsValid(PawnRef)) { return; }
+	if(!IsValid(PawnRef)) { return; }
 
 	if (!bIsInCombat) { return; }
 
 	CurrentDirection = CalculateDirection(
 		PawnRef->GetVelocity(),
 		PawnRef->GetActorRotation()
-	
 	);
 }
+

@@ -14,7 +14,7 @@ class UPlayerInterface : public UInterface
 };
 
 /**
- * 
+ *
  */
 class ACTIONCOMBATCPP_API IPlayerInterface
 {
@@ -25,3 +25,4 @@ public:
 
 	virtual bool HasEnoughStamina(float Cost) { return true; }
 };
+

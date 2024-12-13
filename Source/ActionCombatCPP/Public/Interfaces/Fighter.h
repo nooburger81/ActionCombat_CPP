@@ -24,3 +24,4 @@ class ACTIONCOMBATCPP_API IFighter
 public:
 	virtual float GetDamage() { return 0.0f; }
 };
+

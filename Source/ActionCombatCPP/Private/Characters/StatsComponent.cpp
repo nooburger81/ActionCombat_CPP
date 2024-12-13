@@ -1,11 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "Characters/StatsComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
-
-
 
 // Sets default values for this component's properties
 UStatsComponent::UStatsComponent()
@@ -22,8 +19,7 @@ UStatsComponent::UStatsComponent()
 void UStatsComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	}
+}
 
 
 // Called every frame
@@ -44,7 +40,6 @@ void UStatsComponent::ReduceHealth(float Amount)
 		0,
 		Stats[EStat::MaxHealth]
 	);
-	
 }
 
 void UStatsComponent::ReduceStamina(float Amount)
@@ -55,7 +50,37 @@ void UStatsComponent::ReduceStamina(float Amount)
 		Stats[EStat::Stamina],
 		0,
 		Stats[EStat::MaxStamina]
-		);
+	);
 
-	}
+	bCanRegen = false;
 
+	FLatentActionInfo FunctionInfo{
+		0,
+		100,
+		TEXT("EnableRegen"),
+		this
+	};
+
+	UKismetSystemLibrary::RetriggerableDelay(
+		GetWorld(),
+		StaminaDelayDuration,
+		FunctionInfo
+	);
+}
+
+void UStatsComponent::RegenStamina()
+{
+	if (!bCanRegen) { return; }
+
+	Stats[EStat::Stamina] = UKismetMathLibrary::FInterpTo_Constant(
+		Stats[EStat::Stamina],
+		Stats[EStat::MaxStamina],
+		GetWorld()->DeltaTimeSeconds,
+		StaminaRegenRate
+	);
+}
+
+void UStatsComponent::EnableRegen()
+{
+	bCanRegen = true;
+}

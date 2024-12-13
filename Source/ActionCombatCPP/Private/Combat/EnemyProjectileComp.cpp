@@ -5,7 +5,7 @@
 #include "Kismet/KismetMathLibrary.h"
 
 // Sets default values for this component's properties
-UEnemyProjectileComp::UEnemyProjectileComp()
+UEnemyProjectileComponent::UEnemyProjectileComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -16,7 +16,7 @@ UEnemyProjectileComp::UEnemyProjectileComp()
 
 
 // Called when the game starts
-void UEnemyProjectileComp::BeginPlay()
+void UEnemyProjectileComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -26,29 +26,39 @@ void UEnemyProjectileComp::BeginPlay()
 
 
 // Called every frame
-void UEnemyProjectileComp::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UEnemyProjectileComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
 }
 
-void UEnemyProjectileComp::SpawnProjectile(FName ComponentName, TSubclassOf<AActor> ProjectileClass)
+void UEnemyProjectileComponent::SpawnProjectile(FName ComponentName, TSubclassOf<AActor> ProjectileClass)
 {
-	USceneComponent* SpawnPointComp{
-		Cast<USceneComponent>(GetOwner()->GetDefaultSubobjectByName(ComponentName)) };
-
-	FVector SpawnLocation{SpawnPointComp->GetComponentLocation()};
-
-	FVector PlayerLocation{GetWorld()->GetFirstPlayerController()
-	->GetPawn()
-	->GetActorLocation()
-};
-
-	FRotator SpawnRotation{
-		UKismetMathLibrary::FindLookAtRotation(SpawnLocation, PlayerLocation)
+	USceneComponent* SpawnPointComp{ 
+		Cast<USceneComponent>(GetOwner()->GetDefaultSubobjectByName(ComponentName))
 	};
 
-	GetWorld()->SpawnActor(ProjectileClass, &SpawnLocation, &SpawnRotation);
+	FVector SpawnLocation{ SpawnPointComp->GetComponentLocation() };
+
+	FVector PlayerLocation{ GetWorld()->GetFirstPlayerController()
+		->GetPawn()
+		->GetActorLocation() 
+	};
+
+	FRotator SpawnRotation{ 
+		UKismetMathLibrary::FindLookAtRotation(
+			SpawnLocation, PlayerLocation
+		)
+	};
+
+	GetWorld()->SpawnActor(
+		ProjectileClass, 
+		&SpawnLocation, 
+		&SpawnRotation
+	);
 }
+
+
+
 

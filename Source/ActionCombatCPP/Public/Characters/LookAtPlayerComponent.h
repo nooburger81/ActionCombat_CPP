@@ -21,7 +21,6 @@ public:
 
 	UPROPERTY(VisibleAnywhere)
 	bool bCanRotate{ false };
-
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -32,3 +31,4 @@ public:
 
 		
 };
+

@@ -9,25 +9,24 @@
 // Sets default values
 ABossCharacter::ABossCharacter()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	StatsComp = CreateDefaultSubobject<UStatsComponent>(TEXT("Stats Component"));
-
 }
 
 // Called when the game starts or when spawned
 void ABossCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	BlackboardComp = GetController<AAIController>()
-	->GetBlackboardComponent();
+		->GetBlackboardComponent();
 
 	BlackboardComp->SetValueAsEnum(
 		TEXT("CurrentState"),
 		InitialState
-		);
+	);
 }
 
 // Called every frame
@@ -47,14 +46,15 @@ void ABossCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 void ABossCharacter::DetectPawn(APawn* DetectedPawn, APawn* PawnToDetect)
 {
 	EEnemyState CurrentState{
-	static_cast<EEnemyState>(BlackboardComp->GetValueAsEnum(TEXT("CurrentState")))
+		static_cast<EEnemyState>(BlackboardComp->GetValueAsEnum(TEXT("CurrentState")))
 	};
-	
+
 	if (DetectedPawn != PawnToDetect || CurrentState != EEnemyState::Idle) { return; }
 
 	BlackboardComp->SetValueAsEnum(
 		TEXT("CurrentState"),
 		EEnemyState::Range
-		);
+	);
 }
+
 

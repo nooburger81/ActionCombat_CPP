@@ -17,7 +17,7 @@ class ACTIONCOMBATCPP_API UPlayerAnimInstance : public UAnimInstance
 protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float CurrentSpeed{ 0.0f };
-	
+
 	UFUNCTION(BlueprintCallable)
 	void UpdateSpeed();
 
@@ -32,6 +32,6 @@ public:
 	void HandleUpdatedTarget(AActor* NewTargetActorRef);
 
 	UFUNCTION(BlueprintCallable)
-	void UpdateDirection(FVector Direction);
+	void UpdateDirection();
 };
- 
+

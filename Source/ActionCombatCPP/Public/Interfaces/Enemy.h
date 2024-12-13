@@ -28,3 +28,4 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnDeselect();
 };
+

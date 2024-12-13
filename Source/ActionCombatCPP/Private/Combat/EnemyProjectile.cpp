@@ -10,7 +10,7 @@
 // Sets default values
 AEnemyProjectile::AEnemyProjectile()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 }
@@ -31,19 +31,18 @@ void AEnemyProjectile::Tick(float DeltaTime)
 
 void AEnemyProjectile::HandleBeginOverlap(AActor* OtherActor)
 {
-	APawn* PawnRef{
-	Cast<APawn>(OtherActor)};
+	APawn* PawnRef{ Cast<APawn>(OtherActor) };
 
 	if (!PawnRef->IsPlayerControlled()) { return; }
 
 	FindComponentByClass<UParticleSystemComponent>()
-	->SetTemplate(HitTemplate);
+		->SetTemplate(HitTemplate);
 
 	FindComponentByClass<UProjectileMovementComponent>()
-	->StopMovementImmediately();
+		->StopMovementImmediately();
 
 	FTimerHandle DeathTimerHandle{};
-	
+
 	GetWorldTimerManager().SetTimer(
 		DeathTimerHandle,
 		this,
@@ -52,20 +51,21 @@ void AEnemyProjectile::HandleBeginOverlap(AActor* OtherActor)
 	);
 
 	FindComponentByClass<USphereComponent>()
-	->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	FDamageEvent ProjectileAttackEvent{};
-	
+
 	PawnRef->TakeDamage(
 		Damage,
 		ProjectileAttackEvent,
 		PawnRef->GetController(),
 		this
-		);
+	);
 }
 
 void AEnemyProjectile::DestroyProjectile()
 {
 	Destroy();
 }
+
 

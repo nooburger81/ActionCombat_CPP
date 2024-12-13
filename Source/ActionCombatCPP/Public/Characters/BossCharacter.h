@@ -8,8 +8,6 @@
 #include "Characters/EEnemyState.h"
 #include "BossCharacter.generated.h"
 
-class UStatsComponent;
-
 UCLASS()
 class ACTIONCOMBATCPP_API ABossCharacter : public ACharacter, public IEnemy
 {
@@ -40,5 +38,5 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void DetectPawn(APawn* DetectedPawn, APawn* PawnToDetect);
-
 };
+

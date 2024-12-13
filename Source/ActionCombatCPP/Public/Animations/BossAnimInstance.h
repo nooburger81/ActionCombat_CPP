@@ -13,14 +13,13 @@ UCLASS()
 class ACTIONCOMBATCPP_API UBossAnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
-
+	
 protected:
-
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	float CurrentSpeed{ 0.0f };	
+	float CurrentSpeed{ 0.0f };
 
 public:
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsCharging{ false };
-	
 };
+

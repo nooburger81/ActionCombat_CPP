@@ -24,7 +24,7 @@ class ACTIONCOMBATCPP_API UTraceComponent : public UActorComponent
 	FName Rotation;
 
 	UPROPERTY(EditAnywhere)
-	double BoxCollisionLength{ 30.0f };
+	double BoxCollisionLength{ 30.0 };
 
 	UPROPERTY(EditAnywhere)
 	bool bDebugMode{ false };
@@ -46,6 +46,7 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		UFUNCTION(BlueprintCallable)
-		void HandleResetAttack();
+	UFUNCTION(BlueprintCallable)
+	void HandleResetAttack();
 };
+

@@ -16,38 +16,6 @@ UCombatComponent::UCombatComponent()
 	// ...
 }
 
-void UCombatComponent::ComboAttack()
-{
-	if (CharacterRef->Implements<UPlayerInterface>())
-	{
-		IPlayerInterface* IPlayerRef{ Cast<IPlayerInterface>(CharacterRef) };
-
-		if (IPlayerRef && ! IPlayerRef->HasEnoughStamina(StaminaCost))
-		{
-			return;
-		}
-	}
-	
-	if (!bCanAttack) { return;}
-
-	bCanAttack = false;
-	
-	CharacterRef->PlayAnimMontage(AttackAnimations[ComboCounter]);
-
-	ComboCounter++;
-
-	int MaxCombo{ AttackAnimations.Num() };
-
-	ComboCounter = UKismetMathLibrary::Wrap(
-		ComboCounter,
-		-1,
-		(MaxCombo - 1)
-		);
-
-		OnAttackPerformedDelegate.Broadcast(StaminaCost);
-}
-
-
 
 // Called when the game starts
 void UCombatComponent::BeginPlay()
@@ -55,7 +23,6 @@ void UCombatComponent::BeginPlay()
 	Super::BeginPlay();
 
 	CharacterRef = GetOwner<ACharacter>();
-	
 }
 
 
@@ -67,8 +34,40 @@ void UCombatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 	// ...
 }
 
+void UCombatComponent::ComboAttack()
+{
+	if (CharacterRef->Implements<UPlayerInterface>()) 
+	{
+		IPlayerInterface* IPlayerRef{ Cast<IPlayerInterface>(CharacterRef) };
+
+		if (IPlayerRef && !IPlayerRef->HasEnoughStamina(StaminaCost)) 
+		{
+			return;
+		}
+	}
+
+	if (!bCanAttack) { return; }
+
+	bCanAttack = false;
+
+	CharacterRef->PlayAnimMontage(AttackAnimations[ComboCounter]);
+
+	ComboCounter++;
+
+	int MaxCombo{ AttackAnimations.Num() };
+
+	ComboCounter = UKismetMathLibrary::Wrap(
+		ComboCounter,
+		-1,
+		(MaxCombo - 1)
+	);
+
+	OnAttackPerformedDelegate.Broadcast(StaminaCost);
+}
+
 void UCombatComponent::HandleResetAttack()
 {
 	bCanAttack = true;
 }
+
 

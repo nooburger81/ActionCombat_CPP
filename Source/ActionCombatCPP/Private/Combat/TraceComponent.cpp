@@ -24,8 +24,8 @@ void UTraceComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SkeletalComp = GetOwner()->FindComponentByClass<USkeletalMeshComponent>();
-	
+	SkeletalComp = GetOwner()
+		->FindComponentByClass<USkeletalMeshComponent>();
 }
 
 
@@ -41,43 +41,39 @@ void UTraceComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 	FQuat ShapeRotation{ SkeletalComp->GetSocketQuaternion(Rotation) };
 
 	TArray<FHitResult> OutResults;
-	double WeaponDistance{
+	double WeaponDistance{ 
 		FVector::Distance(StartSocketLocation, EndSocketLocation)
 	};
 	FVector BoxHalfExtent{
-		BoxCollisionLength,
-		BoxCollisionLength,
-		WeaponDistance
+		BoxCollisionLength, BoxCollisionLength, WeaponDistance
 	};
-	BoxHalfExtent /= 2;
+	BoxHalfExtent /= 2; // BoxHalfExtent = BoxHalfExtent / 2;
 	FCollisionShape Box{
 		FCollisionShape::MakeBox(BoxHalfExtent)
 	};
 	FCollisionQueryParams IgnoreParams{
-FName { TEXT("IgnoreParams") },
-false,
-GetOwner()
+		FName { TEXT("Ignore Params") },
+		false,
+		GetOwner()
 	};
 
-		bool bHasFoundTargets{ GetWorld()->SweepMultiByChannel(
-			OutResults,
-			StartSocketLocation,
-			EndSocketLocation,
-			ShapeRotation,
-			ECollisionChannel::ECC_GameTraceChannel1,
-			Box,
-			IgnoreParams
-		)
-		};
+	bool bHasFoundTargets{ GetWorld()->SweepMultiByChannel(
+		OutResults,
+		StartSocketLocation,
+		EndSocketLocation,
+		ShapeRotation,
+		ECollisionChannel::ECC_GameTraceChannel1,
+		Box,
+		IgnoreParams
+	) };
 
 	if (bDebugMode)
 	{
 		FVector CenterPoint{
 			UKismetMathLibrary::VLerp(
-				StartSocketLocation,
-				EndSocketLocation,
-				0.5f
-			) };
+				StartSocketLocation, EndSocketLocation, 0.5f
+			)
+		};
 
 		UKismetSystemLibrary::DrawDebugBox(
 			GetWorld(),
@@ -92,32 +88,31 @@ GetOwner()
 
 	if (OutResults.Num() == 0) { return; }
 
-	float CharacterDamage { 0.0f };
+	float CharacterDamage{ 0.0f };
 
-	IFighter* FighterRef{ Cast<IFighter>(GetOwner())};
+	IFighter* FighterRef{ Cast<IFighter>(GetOwner()) };
 
 	if (FighterRef)
-	{
-		CharacterDamage += FighterRef->GetDamage();
+	{ 
+		CharacterDamage = FighterRef->GetDamage();
 	}
 
 	FDamageEvent TargetAttackedEvent;
-	
+
 	for (const FHitResult& Hit: OutResults)
 	{
-		AActor* TargetActor{ Hit.GetActor()};
+		AActor* TargetActor{ Hit.GetActor() };
 
 		if (TargetsToIgnore.Contains(TargetActor)) { continue; }
-		
+
 		TargetActor->TakeDamage(
 			CharacterDamage,
 			TargetAttackedEvent,
 			GetOwner()->GetInstigatorController(),
-			GetOwner()
-			);
+			GetOwner()  
+		);
 
-		TargetsToIgnore.AddUnique(TargetActor); // AddUnique checks if value already exists
-		
+		TargetsToIgnore.AddUnique(TargetActor);
 	}
 }
 
@@ -125,3 +120,5 @@ void UTraceComponent::HandleResetAttack()
 {
 	TargetsToIgnore.Empty();
 }
+
+

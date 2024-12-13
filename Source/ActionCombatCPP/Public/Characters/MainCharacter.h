@@ -8,10 +8,8 @@
 #include "Interfaces/Fighter.h"
 #include "MainCharacter.generated.h"
 
-
 UCLASS()
 class ACTIONCOMBATCPP_API AMainCharacter : public ACharacter, public IPlayerInterface, public IFighter
-
 {
 	GENERATED_BODY()
 
@@ -23,16 +21,16 @@ public:
 	class UStatsComponent* StatsComp;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	class ULockOnComponent* LockOnComp;
+	class ULockonComponent* LockonComp;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	class UCombatComponent* CombatComp;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	class UBlockComponent* BlockComp;
+	class UTraceComponent* TraceComp;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	class UTraceComponent* TraceComp;
+	class UBlockComponent* BlockComp;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	class UPlayerActionsComponent* PlayerActionsComp;
@@ -44,7 +42,6 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	class UPlayerAnimInstance* PlayerAnim;
 
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -54,4 +51,7 @@ public:
 
 	virtual float GetDamage() override;
 
-	};
+	virtual bool HasEnoughStamina(float Cost) override;
+};
+
+
