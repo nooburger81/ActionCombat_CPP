@@ -7,6 +7,7 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Navigation/PathFollowingComponent.h"
+#include "Characters/EEnemyState.h"
 
 void UBTT_ChargeAttack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
@@ -26,6 +27,11 @@ void UBTT_ChargeAttack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 	}
 
 	if (!bIsFinished) { return; }
+
+	OwnerComp.GetBlackboardComponent()
+		->SetValueAsEnum(
+		TEXT("CurrentState"), EEnemyState::Melee
+		);
 
 	ControllerRef->ReceiveMoveCompleted.Remove(MoveCompletedDelegate);
 
