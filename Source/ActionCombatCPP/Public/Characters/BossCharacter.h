@@ -26,6 +26,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UStatsComponent* StatsComp;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UCombatComponent* CombatComp;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -40,7 +43,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void DetectPawn(APawn* DetectedPawn, APawn* PawnToDetect);
 
-	virtual float GetDamage() override
-	;
+	virtual float GetDamage() override;
+
+	virtual void Attack() override;
 };
 
