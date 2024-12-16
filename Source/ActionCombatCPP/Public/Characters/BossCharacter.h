@@ -5,8 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Interfaces/Enemy.h"
-#include "Interfaces/Fighter.h"
 #include "Characters/EEnemyState.h"
+#include "Interfaces/Fighter.h"
 #include "BossCharacter.generated.h"
 
 UCLASS()
@@ -46,5 +46,9 @@ public:
 	virtual float GetDamage() override;
 
 	virtual void Attack() override;
+
+	virtual float GetAnimationDuration() override;
 };
+
+
 

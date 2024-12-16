@@ -17,13 +17,13 @@ EBTNodeResult::Type UBTT_RangedAttack::ExecuteTask(UBehaviorTreeComponent& Owner
 
 	float Distance{
 		OwnerComp.GetBlackboardComponent()
-		->GetValueAsFloat(TEXT("Distance"))
+			->GetValueAsFloat(TEXT("Distance"))
 	};
-	
-	if (Distance < MeleeRange)
+
+	if (Distance < MeleeRange) 
 	{
 		OwnerComp.GetBlackboardComponent()
-		->SetValueAsEnum(TEXT("CurrentState"), EEnemyState::Melee);
+			->SetValueAsEnum(TEXT("CurrentState"), EEnemyState::Melee);
 
 		AbortTask(OwnerComp, NodeMemory);
 
@@ -51,4 +51,6 @@ EBTNodeResult::Type UBTT_RangedAttack::ExecuteTask(UBehaviorTreeComponent& Owner
 
 	return EBTNodeResult::Succeeded;
 }
+
+
 

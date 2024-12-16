@@ -17,7 +17,7 @@ class ACTIONCOMBATCPP_API UTraceComponent : public UActorComponent
 
 	UPROPERTY(EditAnywhere)
 	TArray<FTraceSockets> Sockets;
-	
+
 	UPROPERTY(EditAnywhere)
 	double BoxCollisionLength{ 30.0 };
 
@@ -44,4 +44,5 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void HandleResetAttack();
 };
+
 

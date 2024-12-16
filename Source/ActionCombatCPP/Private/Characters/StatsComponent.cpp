@@ -84,3 +84,6 @@ void UStatsComponent::EnableRegen()
 {
 	bCanRegen = true;
 }
+
+
+

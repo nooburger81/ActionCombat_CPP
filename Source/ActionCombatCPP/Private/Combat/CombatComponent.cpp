@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
+
 #include "Combat/CombatComponent.h"
 #include "GameFramework/Character.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -72,11 +73,16 @@ void UCombatComponent::HandleResetAttack()
 
 void UCombatComponent::RandomAttack()
 {
-	int RandomIndex{
-		FMath::RandRange(0, AttackAnimations.Num() -1)
+	int RandomIndex{ 
+		FMath::RandRange(0, AttackAnimations.Num() - 1)
 	};
 
-	CharacterRef->PlayAnimMontage(AttackAnimations[RandomIndex]);
+	AnimDuration = CharacterRef
+		->PlayAnimMontage(AttackAnimations[RandomIndex]);
 }
+
+
+
+
 
 

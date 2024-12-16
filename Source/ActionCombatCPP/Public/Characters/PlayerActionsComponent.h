@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Interfaces/PlayerInterface.h"
 #include "PlayerActionsComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_OneParam(
@@ -19,7 +20,7 @@ class ACTIONCOMBATCPP_API UPlayerActionsComponent : public UActorComponent
 
 	ACharacter* CharacterRef;
 
-	class IPlayerInterface* IPlayerRef;
+	IPlayerInterface* IPlayerRef;
 
 	class UCharacterMovementComponent* MovementComp;
 
@@ -53,3 +54,4 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Walk();
 };
+

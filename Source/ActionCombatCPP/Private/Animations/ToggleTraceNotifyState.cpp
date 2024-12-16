@@ -28,3 +28,4 @@ void UToggleTraceNotifyState::NotifyEnd(USkeletalMeshComponent* MeshComp, UAnimS
 	TraceComp->bIsAttacking = false;
 }
 
+

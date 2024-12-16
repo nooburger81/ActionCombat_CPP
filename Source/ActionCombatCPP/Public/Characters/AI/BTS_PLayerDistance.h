@@ -2,22 +2,24 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTService.h"
-#include "BTS_PLayerDistance.generated.h"
+#include "BTS_PlayerDistance.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class ACTIONCOMBATCPP_API UBTS_PLayerDistance : public UBTService
+class ACTIONCOMBATCPP_API UBTS_PlayerDistance : public UBTService
 {
 	GENERATED_BODY()
-
-	protected:
-	virtual void TickNode (
+	
+protected:
+	virtual void TickNode(
 		UBehaviorTreeComponent& OwnerComp,
 		uint8* NodeMemory,
 		float DeltaSeconds
-		) override;
+	) override;
 };
+

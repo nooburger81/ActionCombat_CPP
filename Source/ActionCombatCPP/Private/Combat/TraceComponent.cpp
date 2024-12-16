@@ -2,6 +2,7 @@
 
 
 #include "Combat/TraceComponent.h"
+
 #include "Engine/DamageEvents.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -37,14 +38,19 @@ void UTraceComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 
 	TArray<FHitResult> AllResults;
 
-	for (const FTraceSockets Socket: Sockets)
-	{
-		FVector StartSocketLocation{ SkeletalComp->GetSocketLocation(Socket.Start) };
-		FVector EndSocketLocation{ SkeletalComp->GetSocketLocation(Socket.End) };
-		FQuat ShapeRotation{ SkeletalComp->GetSocketQuaternion(Socket.Rotation) };
+	for (const FTraceSockets Socket: Sockets) {
+		FVector StartSocketLocation{ 
+			SkeletalComp->GetSocketLocation(Socket.Start) 
+		};
+		FVector EndSocketLocation{ 
+			SkeletalComp->GetSocketLocation(Socket.End) 
+		};
+		FQuat ShapeRotation{ 
+			SkeletalComp->GetSocketQuaternion(Socket.Rotation) 
+		};
 
 		TArray<FHitResult> OutResults;
-		double WeaponDistance{ 
+		double WeaponDistance{
 			FVector::Distance(StartSocketLocation, EndSocketLocation)
 		};
 		FVector BoxHalfExtent{
@@ -70,8 +76,7 @@ void UTraceComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 			IgnoreParams
 		) };
 
-		for (FHitResult Hit: OutResults)
-		{
+		for (FHitResult Hit: OutResults) {
 			AllResults.Add(Hit);
 		}
 
@@ -129,5 +134,8 @@ void UTraceComponent::HandleResetAttack()
 {
 	TargetsToIgnore.Empty();
 }
+
+
+
 
 

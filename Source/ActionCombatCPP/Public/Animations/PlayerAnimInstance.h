@@ -34,4 +34,3 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void UpdateDirection();
 };
-

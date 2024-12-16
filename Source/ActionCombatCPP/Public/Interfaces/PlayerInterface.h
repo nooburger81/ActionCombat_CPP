@@ -26,3 +26,4 @@ public:
 	virtual bool HasEnoughStamina(float Cost) { return true; }
 };
 
+

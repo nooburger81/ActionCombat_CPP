@@ -25,24 +25,23 @@ class ACTIONCOMBATCPP_API UBTT_MeleeAttack : public UBTTaskNode
 	bool bIsFinished{ false };
 
 protected:
-	virtual EBTNodeResult::Type
-
-	ExecuteTask(
+	virtual EBTNodeResult::Type ExecuteTask(
 		UBehaviorTreeComponent& OwnerComp,
 		uint8* NodeMemory
 	) override;
 
-	virtual void
+	virtual void TickTask(
+		UBehaviorTreeComponent& OwnerComp,
+		uint8* NodeMemory,
+		float DeltaSeconds
+	) override;
 
-		TickTask(
-			UBehaviorTreeComponent& OwnerComp,
-			uint8* NodeMemory,
-			float DeltaSeconds
-			) override;
+public:
+	UBTT_MeleeAttack();
 
-	public:
-		UBTT_MeleeAttack();
-
-		UFUNCTION()
-		void FinisAttackTask();
+	UFUNCTION()
+	void FinishAttackTask();
 };
+
+
+

@@ -12,7 +12,7 @@ USTRUCT(BlueprintType)
 struct ACTIONCOMBATCPP_API FTraceSockets
 {
 	GENERATED_BODY();
-	
+
 	UPROPERTY(EditAnywhere)
 	FName Start;
 
@@ -21,5 +21,6 @@ struct ACTIONCOMBATCPP_API FTraceSockets
 
 	UPROPERTY(EditAnywhere)
 	FName Rotation;
-
 };
+
+

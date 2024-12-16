@@ -28,3 +28,4 @@ class ACTIONCOMBATCPP_API ULookAtPlayerAnimNotifyState : public UAnimNotifyState
 	) override;
 };
 
+

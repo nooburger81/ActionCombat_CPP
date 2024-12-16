@@ -34,3 +34,4 @@ void ULookAtPlayerAnimNotifyState::NotifyEnd(USkeletalMeshComponent* MeshComp, U
 	RotationComp->bCanRotate = false;
 }
 
+
