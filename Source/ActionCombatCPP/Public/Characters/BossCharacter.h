@@ -48,6 +48,8 @@ public:
 	virtual void Attack() override;
 
 	virtual float GetAnimationDuration() override;
+
+	virtual float GetMeleeRange() override;
 };
 
 
